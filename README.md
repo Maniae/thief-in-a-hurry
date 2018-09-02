@@ -1,17 +1,9 @@
-# Typescript Webpack Babel Boilerplate
+# THIEF (in a hurry)
 
-Boilerplate for a typescript project using webpack and babel.
-Featuring awesome-typescript-loader, html-webpack-plugin and webpack-dev-server
+An infiltration game, where you can't hide nor rest, built for GMTK Game Jam.
 
-## Setup
+Controls: WASD / ZQSD
 
-```bash
-npm install
-npm run build
-````
+Created using Typescript and HTML5.
 
-## Run
-
-```bash
-npm run dev-server
-```
+Play on https://maniae.itch.io/thief-in-a-hurry
