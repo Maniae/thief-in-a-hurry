@@ -16,7 +16,7 @@ export class Player extends Entity {
 	invisible = false;
 
 	init = () => {
-		this.speed = 0;
+		this.speed = 6;
 	}
 
 	update = () => {
