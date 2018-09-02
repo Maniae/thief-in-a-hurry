@@ -10,22 +10,22 @@ const WIDTH = 1440;
 const HEIGHT = 720;
 
 const playerImage = new Image();
-playerImage.src = "/assets/player.png";
+playerImage.src = "./assets/player.png";
 
 const ennemyImage = new Image();
-ennemyImage.src = "/assets/ennemy.png";
+ennemyImage.src = "./assets/ennemy.png";
 
 const invisibilityImage = new Image();
-invisibilityImage.src = "/assets/invisibility.png";
+invisibilityImage.src = "./assets/invisibility.png";
 
 const freezeImage = new Image();
-freezeImage.src = "/assets/freeze.png";
+freezeImage.src = "./assets/freeze.png";
 
 const wallImage = new Image();
-wallImage.src = "/assets/wall.png";
+wallImage.src = "./assets/wall.png";
 
 const floorImage = new Image();
-floorImage.src = "/assets/floor.png";
+floorImage.src = "./assets/floor.png";
 
 export class Drawer {
 
