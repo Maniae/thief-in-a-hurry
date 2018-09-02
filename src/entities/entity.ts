@@ -49,7 +49,7 @@ export abstract class Entity {
 
 	get entityCollisions() {
 		return this._sceneManager.entities.filter(it => this.collide(
-			this.position.x, this.position.y, it.position.x, it.position.y, 16, 16,
+			this.position.x, this.position.y, it.position.x, it.position.y, GameConfig.BONUS_SIZE, GameConfig.BONUS_SIZE,
 		));
 	}
 

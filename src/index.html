@@ -7,10 +7,42 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<link rel="icon" type="image/png" href="/assets/logo.png" />
+		<style>
+			#canvas {
+				transition: opacity 1s linear;
+			}
+			#gameOver {
+				font-size: 20px;
+				width: 1440px;
+				height: 720px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				position: absolute;
+				left: 0;
+				top: 0;
+				color: #fafafa;
+				opacity: 0;
+				transition: opacity 1s linear;
+			}
+			button {
+				font-size: 24px;
+				background-color: #fafafa;
+				padding: 10px;
+				border: none;
+				border-radius: 10px;
+			}
+		</style>
 	</head>
-	<body>
+	<body style="background-color: black">
 		<div id="main">
 			<canvas id="canvas" width="1440" height="720"></canvas>
+		</div>
+		<div id="gameOver">
+			<p>Game Over</p>
+			<p>Thank you for playing.</p>
+			<button>Restart</button>
 		</div>
 	</body>
 </html>

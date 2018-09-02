@@ -34,10 +34,11 @@ export class SceneManager {
 		this.entities.push(entity);
 	}
 
-	spawnPlayer = (position: Vector2) => {
+	spawnPlayer = (position: Vector2, direction: Vector2) => {
 		const offset = GameConfig.SCALE / 2 - GameConfig.ENTITY_SIZE / 2;
 		this.player = new Player(this);
 		this.player.position = position.plus(new Vector2(offset, offset));
+		this.player.direction = direction;
 		this.player.init();
 	}
 

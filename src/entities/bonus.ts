@@ -1,6 +1,7 @@
-import { BonusConfig, bonusName } from "../config/bonusConfig";
+import { BonusConfig, bonusName, GameConfig } from "../config";
 import { Drawer } from "../drawer";
 import { Sprite } from "../sprite";
+import { Vector2 } from "../utils";
 import { Entity } from "./entity";
 import { Player } from "./player";
 
@@ -15,7 +16,7 @@ export class Bonus extends Entity {
 		this.time = config.time;
 		this.value = config.value;
 
-		this.sprite = new Sprite(4, 1, 16, 16);
+		this.sprite = new Sprite(4, 1, GameConfig.BONUS_SIZE, GameConfig.BONUS_SIZE);
 	}
 
 	applyBonus = (player: Player) => {
@@ -31,6 +32,7 @@ export class Bonus extends Entity {
 				break;
 			case "freeze":
 				player.freeze(this.time);
+				player.position = this.position.minus(new Vector2(GameConfig.BONUS_SIZE, GameConfig.BONUS_SIZE));
 				break;
 		}
 		this.destroy();

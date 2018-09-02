@@ -1,72 +1,70 @@
 {
 	"start": {
 		"x": 0,
-		"y": 1
+		"y": 3
 	},
 	"direction": "right",
 	"ennemies": [
 		{
 			"start": {
-				"x": 10,
-				"y": 6
+				"x": 12,
+				"y": 4
 			},
-			"speed": 4,
+			"speed": 5,
 			"pattern": [
-				{
-					"direction": "right",
-					"length" : 7
-				},
 				{
 					"direction": "up",
 					"length" : 3
 				},
 				{
-					"direction": "left",
-					"length" : 7
+					"direction": "right",
+					"length" : 6
 				},
 				{
 					"direction": "down",
-					"length" : 3
+					"length" : 7
+				},
+				{
+					"direction": "left",
+					"length" : 6
+				},
+				{
+					"direction": "up",
+					"length" : 4
 				}
 			]
 		},
 		{
 			"start": {
-				"x": 7,
-				"y": 8
+				"x": 12,
+				"y": 5
 			},
-			"speed": 6,
+			"speed": 5,
 			"pattern": [
+				{
+					"direction": "down",
+					"length" : 3
+				},
+				{
+					"direction": "right",
+					"length" : 6
+				},
 				{
 					"direction": "up",
 					"length" : 7
 				},
 				{
 					"direction": "left",
-					"length" : 3
+					"length" : 6
 				},
 				{
 					"direction": "down",
-					"length" : 7
-				},
-				{
-					"direction": "right",
-					"length" : 3
+					"length" : 4
 				}
 			]
 		}
 	],
-	"bonuses": [
-		{
-			"name": "invisibility",
-			"position": {
-				"x": 2,
-				"y": 8
-			},
-			"time": 2,
-			"value": 5
-		}
-	],
+	"bonuses": [],
 	"map": [
 		{
 			"name": "wall",
@@ -77,24 +75,24 @@
 		},
 		{
 			"name": "wall",
-			"x": 19,
+			"x": 0,
 			"y": 0,
 			"width": 1,
-			"height": 5
-		},
-		{
-			"name": "wall",
-			"x": 19,
-			"y": 6,
-			"width": 1,
-			"height": 10
+			"height": 3
 		},
 		{
 			"name": "wall",
 			"x": 0,
-			"y": 2,
+			"y": 4,
 			"width": 1,
-			"height": 8
+			"height": 6
+		},
+		{
+			"name": "wall",
+			"x": 19,
+			"y": 0,
+			"width": 1,
+			"height": 10
 		},
 		{
 			"name": "wall",
@@ -105,38 +103,52 @@
 		},
 		{
 			"name": "hole",
-			"x": 2,
-			"y": 2,
-			"width": 1,
-			"height": 6
-		},
-		{
-			"name": "hole",
-			"x": 5,
-			"y": 2,
-			"width": 2,
-			"height": 6
-		},
-		{
-			"name": "hole",
-			"x": 11,
-			"y": 4,
-			"width": 6,
+			"x": 1,
+			"y": 1,
+			"width": 10,
 			"height": 2
 		},
 		{
 			"name": "hole",
-			"x": 18,
-			"y": 1,
+			"x": 1,
+			"y": 4,
+			"width": 10,
+			"height": 5
+		},
+		{
+			"name": "hole",
+			"x": 13,
+			"y": 2,
 			"width": 1,
-			"height": 1
+			"height": 6
+		},
+		{
+			"name": "hole",
+			"x": 16,
+			"y": 2,
+			"width": 2,
+			"height": 2
+		},
+		{
+			"name": "hole",
+			"x": 16,
+			"y": 6,
+			"width": 2,
+			"height": 2
+		},
+		{
+			"name": "hole",
+			"x": 15,
+			"y": 2,
+			"width": 1,
+			"height": 6
 		},
 		{
 			"name": "finish",
-			"x": 19,
-			"y": 5,
+			"x": 16,
+			"y": 4,
 			"width": 1,
-			"height": 1
+			"height": 2
 		}
 	]
 }

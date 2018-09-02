@@ -11,25 +11,24 @@ export class Player extends Entity {
 	private moveDelay = 200;
 	private moveTimeout = 0;
 	sprite = new Sprite(4, 3, GameConfig.ENTITY_SIZE, GameConfig.ENTITY_SIZE);
+	fallen = false;
 
 	invisible = false;
 
 	init = () => {
-		this.speed = 10;
-		this.direction = new Vector2(1, 0);
+		this.speed = 0;
 	}
 
 	update = () => {
 		this.checkInputs();
 		const prevPos = this.position;
 		this.moveTo(this.direction, this.speed);
-		const collisions = this.blockCollisions;
 		if (
 			this.position.x < 0
 			|| this.position.x > 1440
 			|| this.position.y > 720
 			|| this.position.y < 0
-			|| collisions.length > 0
+			|| this.blockCollisions.filter(block => block.name === "wall").length > 0
 		) {
 			this.direction = this.direction.scalar(-1);
 			this.throttle();
@@ -55,10 +54,14 @@ export class Player extends Entity {
 	}
 
 	checkBlocks = () => {
-		this.blockIntersections.map(block => {
+		this.blockCollisions.map(block => {
 			if (block.name === "hole") {
+				this.fallen = true;
 				this._sceneManager.freeze();
 			}
+		});
+
+		this.blockIntersections.map(block => {
 			if (block.name === "finish") {
 				this._sceneManager.freeze(true);
 			}
@@ -86,16 +89,16 @@ export class Player extends Entity {
 		if (this.moveTimeout) {
 			return;
 		}
-		if (Input.isPressed("d")) {
+		if (Input.isPressed("d") && this.direction.x >= 0) {
 			this.direction = new Vector2(1, 0);
 		}
-		if (Input.isPressed("z")) {
+		if ((Input.isPressed("z") || Input.isPressed("w")) && this.direction.y <= 0) {
 			this.direction = new Vector2(0, -1);
 		}
-		if (Input.isPressed("q")) {
+		if ((Input.isPressed("q") || Input.isPressed("a")) && this.direction.x <= 0) {
 			this.direction = new Vector2(-1, 0);
 		}
-		if (Input.isPressed("s")) {
+		if (Input.isPressed("s") && this.direction.y >= 0) {
 			this.direction = new Vector2(0, 1);
 		}
 	}

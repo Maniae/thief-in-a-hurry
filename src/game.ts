@@ -35,10 +35,27 @@ export class Game {
 		this.sceneManager.setLevelMap(this.level.map);
 		this.drawer.setLevelMap(this.level.map);
 		this.sceneManager.clearEntities();
-		this.sceneManager.spawnPlayer(this.level.start);
+		this.sceneManager.spawnPlayer(this.level.start, this.level.direction);
 		this.level.ennemies.map(ennemyConfig => this.sceneManager.spawn(Ennemy, undefined, ennemyConfig));
 		this.level.bonuses.map(bonusConfig => this.sceneManager.spawn(Bonus, undefined, bonusConfig));
 		requestAnimationFrame(this.update);
+	}
+
+	gameOver = () => {
+		document.getElementById("canvas")!.style.opacity = "0.1";
+		document.getElementById("gameOver")!.style.opacity = "1";
+		const button = document.querySelector("button")!;
+		button.style.cursor = "pointer";
+		button.addEventListener("click", this.restart);
+	}
+
+	restart = () => {
+		document.getElementById("canvas")!.style.opacity = "1";
+		document.getElementById("gameOver")!.style.opacity = "0";
+		const button = document.querySelector("button")!;
+		button.style.cursor = "none";
+		button.removeEventListener("click", this.restart);
+		setTimeout(this.startLevel, 1000);
 	}
 
 	update = () => {
@@ -54,9 +71,11 @@ export class Game {
 		if (finish) {
 			this.levelNumber ++;
 			if (levels.length <= this.levelNumber) {
+				this.levelNumber = 0;
+				setTimeout(this.gameOver, 1000);
 				return;
 			}
 		}
-		setTimeout(this.startLevel, 1000);
+		setTimeout(this.startLevel, 500);
 	}
 }

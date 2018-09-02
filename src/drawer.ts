@@ -94,6 +94,9 @@ export class Drawer {
 	}
 
 	drawPlayer = (player: Player) => {
+		if (player.fallen) {
+			return;
+		}
 		this.draw(c => {
 			const { x, y } = player.direction;
 			const { sx, sy, width, height } = player.sprite.getSpriteInfo(y < 0 ? 2 : x > 0 ? 0 : 1);
@@ -101,6 +104,10 @@ export class Drawer {
 			if (player.invisible) {
 				c.globalAlpha = 0.2;
 				c.shadowColor = "white";
+				c.shadowBlur = 4;
+			}
+			if (player.speed === 0) {
+				c.shadowColor = "#36F1CD";
 				c.shadowBlur = 4;
 			}
 			c.drawImage(image, sx, sy, width, height, player.position.x, player.position.y, width, height);
