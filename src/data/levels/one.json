@@ -1,0 +1,141 @@
+{
+	"start": {
+		"x": 0.5,
+		"y": 1.5
+	},
+	"ennemies": [
+		{
+			"start": {
+				"x": 10.5,
+				"y": 6.5
+			},
+			"speed": 2,
+			"pattern": [
+				{
+					"direction": "right",
+					"length" : 7
+				},
+				{
+					"direction": "up",
+					"length" : 3
+				},
+				{
+					"direction": "left",
+					"length" : 7
+				},
+				{
+					"direction": "down",
+					"length" : 3
+				}
+			]
+		},
+		{
+			"start": {
+				"x": 7.5,
+				"y": 8.5
+			},
+			"speed": 3,
+			"pattern": [
+				{
+					"direction": "up",
+					"length" : 7
+				},
+				{
+					"direction": "left",
+					"length" : 3
+				},
+				{
+					"direction": "down",
+					"length" : 7
+				},
+				{
+					"direction": "right",
+					"length" : 3
+				}
+			]
+		}
+	],
+	"bonuses": [
+		{
+			"name": "invisibility",
+			"position": {
+				"x": 2.5,
+				"y": 8.5
+			},
+			"time": 2,
+			"value": 5
+		}
+	],
+	"map": [
+		{
+			"name": "wall",
+			"x": 0,
+			"y": 0,
+			"width": 20,
+			"height": 1
+		},
+		{
+			"name": "wall",
+			"x": 19,
+			"y": 0,
+			"width": 1,
+			"height": 5
+		},
+		{
+			"name": "wall",
+			"x": 19,
+			"y": 6,
+			"width": 1,
+			"height": 10
+		},
+		{
+			"name": "wall",
+			"x": 0,
+			"y": 2,
+			"width": 1,
+			"height": 8
+		},
+		{
+			"name": "wall",
+			"x": 0,
+			"y": 9,
+			"width": 20,
+			"height": 1
+		},
+		{
+			"name": "randomObject",
+			"x": 2,
+			"y": 2,
+			"width": 1,
+			"height": 6
+		},
+		{
+			"name": "randomObject",
+			"x": 5,
+			"y": 2,
+			"width": 2,
+			"height": 6
+		},
+		{
+			"name": "randomObject",
+			"x": 11,
+			"y": 4,
+			"width": 6,
+			"height": 2
+		},
+		{
+			"name": "hole",
+			"x": 18,
+			"y": 1,
+			"width": 1,
+			"height": 1
+		},
+		{
+			"name": "finish",
+			"x": 19,
+			"y": 5,
+			"width": 1,
+			"height": 1
+		}
+	]
+}
