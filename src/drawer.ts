@@ -1,4 +1,5 @@
 import { Block } from "./blocks";
+import { GameConfig } from "./config";
 import { Bonus, Ennemy, Player } from "./entities";
 import { Game } from "./game";
 import { Shadow } from "./shadow";
@@ -20,35 +21,33 @@ invisibilityImage.src = "/assets/invisibility.png";
 const freezeImage = new Image();
 freezeImage.src = "/assets/freeze.png";
 
+const wallImage = new Image();
+wallImage.src = "/assets/wall.png";
+
+const floorImage = new Image();
+floorImage.src = "/assets/floor.png";
+
 export class Drawer {
 
 	private ctx!: CanvasRenderingContext2D;
 	private map!: Block[];
-	// private playerSprite!: Sprite;
-	// private ennemySprite!: Sprite;
-	// private invisibilitySprite!: Sprite;
-	// private freezeSprite!: Sprite;
 
 	constructor(private readonly game: Game) {}
 
-	init = async (map: Block[]) => {
+	init = async () => {
 		const canvas = document.getElementById("canvas") as HTMLCanvasElement | null;
 		if (!canvas) {
 			throw Error("Canvas element misisng");
 		}
 		this.ctx = canvas.getContext("2d")!;
-		this.map = map;
 		await this.loadImage(playerImage);
-		// this.playerSprite = new Sprite(playerImage, 4, 3, 32, 32);
-
 		await this.loadImage(ennemyImage);
-		// this.ennemySprite = new Sprite(ennemyImage, 4, 3, 32, 32);
-
 		await this.loadImage(invisibilityImage);
-		// this.invisibilitySprite = new Sprite(invisibilityImage, 4, 1, 16, 16);
-
 		await this.loadImage(freezeImage);
-		// this.freezeSprite = new Sprite(freezeImage, 4, 1, 16, 16);
+	}
+
+	setLevelMap(map: Block[]) {
+		this.map = map;
 	}
 
 	loadImage = async (image: HTMLImageElement) => new Promise<HTMLImageElement>((resolve, reject) => {
@@ -80,7 +79,7 @@ export class Drawer {
 
 	drawBackground = () => {
 		this.draw(c => {
-			c.fillStyle = "#000";
+			c.fillStyle = "#3b2e1d";
 			c.fillRect(0, 0, WIDTH, HEIGHT);
 		});
 	}
@@ -117,7 +116,7 @@ export class Drawer {
 			const image = ennemyImage;
 			c.drawImage(image, sx, sy, width, height, ennemy.position.x, ennemy.position.y, width, height);
 		});
-		this.drawLight(ennemy.position, ennemy.direction, ennemy.color);
+		this.drawLight(ennemy.position.plus(new Vector2(16, 16)), ennemy.direction, ennemy.color);
 	}
 
 	drawLight(position: Vector2, direction: Vector2, color: string) {
@@ -134,10 +133,12 @@ export class Drawer {
 			const rnd = 0.05 * Math.sin(1.1 * Date.now() / 1000);
 			const radius = 200 * (1 + rnd);
 			const radialGradient = c.createRadialGradient(0, 0, 0, 0, 0, radius);
-			radialGradient.addColorStop(0.0, "#fff");
-			radialGradient.addColorStop(0.2 + rnd, "#ffffffaa");
+			const start = Math.abs(direction.x) > 0 ? 0.05 : 0.08;
+			radialGradient.addColorStop(0.0, "#000");
+			radialGradient.addColorStop(start, "#000");
+			radialGradient.addColorStop(start + 0.01, "#fff");
 			radialGradient.addColorStop(0.7 + rnd, "#ffffff88");
-			radialGradient.addColorStop(0.90, "#ffffff44");
+			radialGradient.addColorStop(0.90 + rnd, "#ffffff44");
 			radialGradient.addColorStop(1, "#ffffff22");
 			c.fillStyle = color || radialGradient;
 			c.beginPath();
@@ -191,19 +192,13 @@ export class Drawer {
 	}
 
 	drawWall(x: number, y: number, width: number, height: number) {
-		this.draw(c => {
-			c.fillStyle = "#333";
-			c.rect(x, y, width, height);
-			c.fill();
-		});
+		this.texturize(wallImage, x, y, width, height);
 	}
 
 	drawRandomObject(x: number, y: number, width: number, height: number) {
-		this.draw(c => {
-			c.fillStyle = "#459899";
-			c.rect(x, y, width, height);
-			c.fill();
-		});
+
+		this.texturize(wallImage, x, y, width, height);
+
 		this.game.sceneManager.getEntities(Ennemy).map(ennemy => {
 			Shadow.castFromRectangle(
 				this.ctx,
@@ -219,6 +214,8 @@ export class Drawer {
 	drawHole(x: number, y: number, width: number, height: number) {
 		this.draw(c => {
 			c.fillStyle = "#000";
+			c.shadowColor = "#000";
+			c.shadowBlur = 10;
 			c.rect(x, y, width, height);
 			c.fill();
 		});
@@ -226,9 +223,21 @@ export class Drawer {
 
 	drawFinish(x: number, y: number, width: number, height: number) {
 		this.draw(c => {
-			c.fillStyle = "#ccc";
+			c.fillStyle = "#3b2e1d";
+			c.shadowColor = "#36F1CD";
+			c.shadowBlur = 50;
 			c.rect(x, y, width, height);
 			c.fill();
+		});
+	}
+
+	texturize = (texture: HTMLImageElement, x: number, y: number, width: number, height: number) => {
+		this.draw(c => {
+			for (let xx = x; xx < x + width; xx += GameConfig.SCALE) {
+				for (let yy = y; yy < y + height; yy += GameConfig.SCALE) {
+					c.drawImage(texture, xx, yy, GameConfig.SCALE, GameConfig.SCALE);
+				}
+			}
 		});
 	}
 }

@@ -1,9 +1,8 @@
+import { GameConfig } from "../config";
 import { Drawer } from "../drawer";
 import { SceneManager } from "../sceneManager";
 import { Sprite } from "../sprite";
 import { Vector2 } from "../utils";
-
-const collisionDistance = 10;
 
 export abstract class Entity {
 
@@ -50,7 +49,7 @@ export abstract class Entity {
 
 	get entityCollisions() {
 		return this._sceneManager.entities.filter(it => this.collide(
-			this.position.x, this.position.y, it.position.x, it.position.y, 10, 10,
+			this.position.x, this.position.y, it.position.x, it.position.y, 16, 16,
 		));
 	}
 
@@ -60,11 +59,27 @@ export abstract class Entity {
 		));
 	}
 
-	collide = (x: number, y: number, dx: number, dy: number, dw: number, dh: number) => {
-		if (x < dx - 10 || x > dx + dw + 10) {
+	get blockIntersections() {
+		return this._sceneManager.map.filter(block => !block.solid && this.hover(
+			this.position.x, this.position.y, block.position.x, block.position.y, block.width, block.height,
+		));
+	}
+
+	hover = (x: number, y: number, dx: number, dy: number, dw: number, dh: number) => {
+		if (x < dx || x + GameConfig.ENTITY_SIZE > dx + dw) {
 			return false;
 		}
-		if (y < dy - 10 || y > dy + dh + 10) {
+		if (y < dy || y + GameConfig.ENTITY_SIZE > dy + dh) {
+			return false;
+		}
+		return true;
+	}
+
+	collide = (x: number, y: number, dx: number, dy: number, dw: number, dh: number) => {
+		if (x + GameConfig.ENTITY_SIZE < dx || x > dx + dw) {
+			return false;
+		}
+		if (y + GameConfig.ENTITY_SIZE < dy || y > dy + dh) {
 			return false;
 		}
 		return true;

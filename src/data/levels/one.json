@@ -1,15 +1,15 @@
 {
 	"start": {
-		"x": 0.5,
-		"y": 1.5
+		"x": 0,
+		"y": 1
 	},
 	"ennemies": [
 		{
 			"start": {
-				"x": 10.5,
-				"y": 6.5
+				"x": 10,
+				"y": 6
 			},
-			"speed": 2,
+			"speed": 4,
 			"pattern": [
 				{
 					"direction": "right",
@@ -31,10 +31,10 @@
 		},
 		{
 			"start": {
-				"x": 7.5,
-				"y": 8.5
+				"x": 7,
+				"y": 8
 			},
-			"speed": 3,
+			"speed": 6,
 			"pattern": [
 				{
 					"direction": "up",
@@ -59,8 +59,8 @@
 		{
 			"name": "invisibility",
 			"position": {
-				"x": 2.5,
-				"y": 8.5
+				"x": 2,
+				"y": 8
 			},
 			"time": 2,
 			"value": 5

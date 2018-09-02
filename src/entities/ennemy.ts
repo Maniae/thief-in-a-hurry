@@ -1,4 +1,4 @@
-import { EnnemyConfig, Movement } from "../config";
+import { EnnemyConfig, GameConfig, Movement } from "../config";
 import { Drawer } from "../drawer";
 import { Sprite } from "../sprite";
 import { Vector2 } from "../utils";
@@ -9,7 +9,7 @@ export class Ennemy extends Entity {
 	private pattern!: Movement[];
 	private patternIndex = 0;
 	private start!: Vector2;
-	sprite = new Sprite(4, 3, 32, 32);
+	sprite = new Sprite(4, 3, GameConfig.ENTITY_SIZE, GameConfig.ENTITY_SIZE);
 	color = "";
 
 	init = (config: EnnemyConfig) => {

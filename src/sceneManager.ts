@@ -1,4 +1,5 @@
 import { Block } from "./blocks";
+import { GameConfig } from "./config";
 import { Entity, Player } from "./entities";
 import { Game } from "./game";
 import { Child, Vector2 } from "./utils";
@@ -13,7 +14,9 @@ export class SceneManager {
 		this.player = new Player(this);
 	}
 
-	init(map: Block[]) {
+	init() {}
+
+	setLevelMap(map: Block[]) {
 		this.map = map;
 	}
 
@@ -32,8 +35,9 @@ export class SceneManager {
 	}
 
 	spawnPlayer = (position: Vector2) => {
+		const offset = GameConfig.SCALE / 2 - GameConfig.ENTITY_SIZE / 2;
 		this.player = new Player(this);
-		this.player.position = position;
+		this.player.position = position.plus(new Vector2(offset, offset));
 		this.player.init();
 	}
 
@@ -53,7 +57,7 @@ export class SceneManager {
 		return this.entities.filter(it => (it instanceof EntityClass)) as T[];
 	}
 
-	freeze() {
-		this.game.freeze();
+	freeze(finish?: boolean) {
+		this.game.freeze(finish);
 	}
 }

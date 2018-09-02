@@ -10,8 +10,9 @@ export class EnnemyConfig {
 	) {}
 
 	static fromJson = (json: any) => {
+		const offset = GameConfig.SCALE / 2 - GameConfig.ENTITY_SIZE / 2;
 		return new EnnemyConfig(
-			Vector2.fromJson(json.start),
+			Vector2.fromJson(json.start).plus(new Vector2(offset, offset)),
 			json.speed,
 			json.pattern.map((movement: any) => Movement.fromJson(movement)),
 		);

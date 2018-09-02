@@ -1,3 +1,4 @@
+import { GameConfig } from "../config";
 import { Drawer } from "../drawer";
 import { Input } from "../input";
 import { Sprite } from "../sprite";
@@ -9,12 +10,12 @@ export class Player extends Entity {
 
 	private moveDelay = 200;
 	private moveTimeout = 0;
-	sprite = new Sprite(4, 3, 32, 32);
+	sprite = new Sprite(4, 3, GameConfig.ENTITY_SIZE, GameConfig.ENTITY_SIZE);
 
 	invisible = false;
 
 	init = () => {
-		this.speed = 5;
+		this.speed = 10;
 		this.direction = new Vector2(1, 0);
 	}
 
@@ -22,18 +23,20 @@ export class Player extends Entity {
 		this.checkInputs();
 		const prevPos = this.position;
 		this.moveTo(this.direction, this.speed);
+		const collisions = this.blockCollisions;
 		if (
 			this.position.x < 0
 			|| this.position.x > 1440
 			|| this.position.y > 720
 			|| this.position.y < 0
-			|| this.blockCollisions.length > 0
+			|| collisions.length > 0
 		) {
 			this.direction = this.direction.scalar(-1);
 			this.throttle();
 			this.position = prevPos;
 		}
 		this.checkBonuses();
+		this.checkBlocks();
 	}
 
 	draw = (drawer: Drawer) => {
@@ -49,6 +52,17 @@ export class Player extends Entity {
 		if (bonuses.length > 0) {
 			bonuses.map(bonus => bonus.applyBonus(this));
 		}
+	}
+
+	checkBlocks = () => {
+		this.blockIntersections.map(block => {
+			if (block.name === "hole") {
+				this._sceneManager.freeze();
+			}
+			if (block.name === "finish") {
+				this._sceneManager.freeze(true);
+			}
+		});
 	}
 
 	modifySpeed = (value: number, time: number) => {
