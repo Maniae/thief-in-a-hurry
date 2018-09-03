@@ -58,12 +58,14 @@ export class Player extends Entity {
 			if (block.name === "hole") {
 				this.fallen = true;
 				this._sceneManager.freeze();
+				return;
 			}
 		});
 
 		this.blockIntersections.map(block => {
 			if (block.name === "finish") {
 				this._sceneManager.freeze(true);
+				return;
 			}
 		});
 	}
